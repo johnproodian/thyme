@@ -1,5 +1,5 @@
 const { User } = require('../models');
-// const { }
+const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
     Query: {
@@ -12,7 +12,9 @@ const resolvers = {
 
     Mutation: {
         addUser: async(parent, args) => {
-            return User.create(args);
+            const user = await User.create(args);
+
+            return user;
         }
     }
 }
