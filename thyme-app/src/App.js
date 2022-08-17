@@ -1,16 +1,20 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Login from "./components/login/login.js"
+
+// Import React Router
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Import Pages
+import LandingPage from "./pages/landingPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{` if (Thyme.now) { savedMoney++ } `}</p>
-        <Login />
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        {/* TO DO: Log in / Register Route */}
+        {/* TO DO: Dashboard Routes */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
