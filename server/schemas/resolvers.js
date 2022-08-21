@@ -21,18 +21,13 @@ const resolvers = {
         },
         // login
         login: async(parent, { username, password }) => {
-            console.log(username);
-            console.log(password);
-
             const user = await User.findOne({ username });
-            console.log('user ', user);
 
             if (!user) {
                 throw new AuthenticationError('Incorrect email.')
             }
 
             const correctPassword = await user.isCorrectPassword(password);
-            console.log('tried password thing')
 
             if (!correctPassword) {
                 throw new AuthenticationError('Incorrect credentials.');
