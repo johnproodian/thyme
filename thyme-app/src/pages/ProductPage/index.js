@@ -1,11 +1,11 @@
-import logo from "../logo.svg";
+import logo from "../../logo.svg";
 
-export default function Login() {
+export function ProductPage() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>{` Landing Page`}</p>
+        <p>{` Product Page`}</p>
       </header>
     </div>
   );

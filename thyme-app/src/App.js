@@ -4,15 +4,16 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import Pages
-import LandingPage from "./pages/landingPage";
+import { LandingPage, LogInPage, TrackingPage, ProductPage } from "./pages";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* TO DO: Log in / Register Route */}
-        {/* TO DO: Dashboard Routes */}
+        <Route path="/login" element={<LogInPage />} />
+        <Route path="/tracking" element={<TrackingPage />} />
+        <Route path="/product" element={<ProductPage />} />
       </Routes>
     </BrowserRouter>
   );
