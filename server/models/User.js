@@ -20,7 +20,7 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        zipCode: {
+        storeID: {
             type: String,
             trim: true
         }
