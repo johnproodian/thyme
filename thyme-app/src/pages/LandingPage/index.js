@@ -1,12 +1,19 @@
-import logo from "../../logo.svg";
+// import logo from "../../logo.svg";
+import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
 
 export function LandingPage() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{` Landing Page`}</p>
-      </header>
-    </div>
+    <MDBContainer fluid className="App Full-Screen bg-light">
+      <MDBRow className="h-25">
+        <MDBCol bottom className="h-50">
+          logo
+        </MDBCol>
+      </MDBRow>
+      <MDBRow className="bg-dark h-50" center>
+        {" "}
+        Panel
+      </MDBRow>
+      <MDBRow className="h-25" center></MDBRow>
+    </MDBContainer>
   );
 }
