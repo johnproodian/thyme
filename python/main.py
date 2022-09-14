@@ -3,12 +3,12 @@
 import requests             # Handles requests from api
 import datetime             # Get the current date that data was pulled
 import tokenconfig          # config file for token pulls
+import pymongo              # Configuration
 
 # Sample API call used to test connection and results
 # https://api.kroger.com/v1/connect/oauth2/authorize?scope={{SCOPES}}&response_type=code&client_id={{CLIENT_ID}}&redirect_uri={{REDIRECT_URI}}
 
 # Set Parameters
-# TODO: Hide these in a config file - at least the secret
 url_test = "https://api.kroger.com/v1/products?filter.term=milk&filter.locationId=03400732"
 url = 'https://api.kroger.com/v1/connect/oauth2/token'
 client_id = tokenconfig.client_id
@@ -28,6 +28,25 @@ def get_access_token(url, client_id, client_secret):
 
 
 
+
+# Function is going to used to push query to mongoDB server.  Currently looking to push sale price, price, item name, and date
+def pushToMongo(myItem):
+    print("Posting to MongoDB")
+    myclient = pymongo.MongoClient("mongodb+srv://johnproodian:mongopword@cluster0.fpy4s.mongodb.net/Thyme?retryWrites=true&w=majority")
+    # print(myclient.list_database_names)
+    mydb = myclient['Thyme']                                    # Name of Database on MongoDB
+    mycol = mydb['groceryData']                                 # Collections to hold Grocery Prices
+    print(mydb.list_collection_names())                         # Find all the current collections in DB
+    # Current schema to add to db
+    mydict = {"date": "date",
+                "item": "Steven",
+                "regPrice": "price",
+                "salePrice": "price"}  
+    x = mycol.insert_one(myItem)                                # Insert statement
+
+
+
+
 #TODO: Function works but is refreshing every pull.  Need to adjust to only use token refresh but error 401 happens
 #  Maybe split up the function into smaller ones and intergrat them instead of code replication.
 def pullItem(type, location, limit):
@@ -35,6 +54,7 @@ def pullItem(type, location, limit):
     payload = {}
     headers = {}
 
+    #TODO: Put these lines within the token bearer function.  No need to put in here
     url = 'https://api.kroger.com/v1/connect/oauth2/token'
     client_id = tokenconfig.client_id
     client_secret = tokenconfig.client_secret
@@ -53,14 +73,20 @@ def pullItem(type, location, limit):
         print("Time to get a new token!")
     else:
         json_response = response.json()
-        print('Date: ' + datetime.datetime.now().strftime("%m/%d/%Y"))
-        print('Item: ' + str(json_response['data'][0]['description']))
-        print('Promo price: ' + str(json_response['data'][0]['items'][0]['price']['promo']))
-        print('Regular Price: ' + str(json_response['data'][0]['items'][0]['price']['regular']))
-
+        date = datetime.datetime.now().strftime("%m/%d/%Y")
+        item = str(json_response['data'][0]['description'])
+        salePrice = str(json_response['data'][0]['items'][0]['price']['promo'])
+        regPrice = str(json_response['data'][0]['items'][0]['price']['regular'])
+        print('Date: ' + date)
+        print('Item: ' + item)
+        print('Promo price: ' + salePrice)
+        print('Regular Price: ' + regPrice)
+        myItemData = {"date": date, "item": item, "salePrice": salePrice, "regPrice": regPrice}
+        pushToMongo(myItemData)
 
 
 # Function call
 pullItem('bread', '03400738', '1')
+
 
 
