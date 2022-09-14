@@ -2,7 +2,7 @@
 
 import requests             # Handles requests from api
 import datetime             # Get the current date that data was pulled
-
+import tokenconfig          # config file for token pulls
 
 # Sample API call used to test connection and results
 # https://api.kroger.com/v1/connect/oauth2/authorize?scope={{SCOPES}}&response_type=code&client_id={{CLIENT_ID}}&redirect_uri={{REDIRECT_URI}}
@@ -11,8 +11,8 @@ import datetime             # Get the current date that data was pulled
 # TODO: Hide these in a config file - at least the secret
 url_test = "https://api.kroger.com/v1/products?filter.term=milk&filter.locationId=03400732"
 url = 'https://api.kroger.com/v1/connect/oauth2/token'
-client_id = 'placeholder'
-client_secret = "placeholder"
+client_id = tokenconfig.client_id
+client_secret = tokenconfig.client_secret
 
 
 # This function retrieves the auth token from the API -  Token needs to be refreshed every 30 minutes.
