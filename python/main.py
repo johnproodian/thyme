@@ -36,8 +36,8 @@ def pullItem(type, location, limit):
     headers = {}
 
     url = 'https://api.kroger.com/v1/connect/oauth2/token'
-    client_id = 'thymeprod-d67de968e437e52b4764a7733763545c2737297631058086522'
-    client_secret = 'GwtEOSgmYTVuYGlQgTILcDtkUDRzbvIcQaQ2MzU0'
+    client_id = tokenconfig.client_id
+    client_secret = tokenconfig.client_secret
     # Working code to pull price data from token.
 
     payload={}
