@@ -8,9 +8,8 @@ export default {
       query users {
         users {
           _id
-          username
           email
-          zipCode
+          storeID
         }
       }
     `,
@@ -18,32 +17,30 @@ export default {
   mutation: {
     ADD_USER: gql`
       mutation addUser(
-        $username: String!
         $email: String!
         $password: String!
-        $zipCode: String
+        $storeID: String
       ) {
         addUser(
-          username: $username
           email: $email
           password: $password
-          zipCode: $zipCode
+          storeID: $storeID
         ) {
           token
           user {
             _id
-            username
+            email
           }
         }
       }
     `,
     LOG_IN: gql`
-      mutation login($username: String!, $password: String!) {
-        login(username: $username, password: $password) {
+      mutation login($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
           token
           user {
             _id
-            username
+            email
           }
         }
       }
