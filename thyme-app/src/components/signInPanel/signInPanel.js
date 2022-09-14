@@ -49,23 +49,58 @@ const LogInForm = (props) => {
       <MDBBtn type="submit" className="mb-4" block>
         Sign in
       </MDBBtn>
-
-      <div className="text-center">
-        <p>or sign up with:</p>
-
-        <MDBBtn block className="mx-1 my-1">
-          <MDBIcon fab icon="google" />
-        </MDBBtn>
-
-        <MDBBtn block className="mx-1">
-          <MDBIcon fab icon="apple" />
-        </MDBBtn>
-      </div>
     </form>
   );
 };
 
 const CreateAccountForm = (props) => {
+  // Init State for Form data
+  const [formData, setFormData] = useState({
+    email: "",
+    zipCode: "",
+    password: "",
+  });
+
+  // Init Mutate Hook
+  const [addUser, { data, loading, error }] = useMutation(
+    API.mutation.ADD_USER
+  );
+
+  // Handle Input value change method
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Handle form submission
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log(formData);
+
+    const { username, email, zipCode, password } = formData;
+
+    // Add user with form data
+    await addUser({
+      variables: {
+        ...formData,
+      },
+      // Add User Mutation returns user token and user data
+    });
+
+    // After User is added see Returned Data
+    console.log(data);
+    // Reload Page
+    window.location.assign("/api");
+  };
+
+  if (loading) return "Submitting...";
+  if (error) return `Submission error! ${error.message}`;
+
   return (
     <form>
       <MDBRow className="mb-4">
@@ -78,15 +113,22 @@ const CreateAccountForm = (props) => {
       </MDBRow>
       <MDBInput
         className="mb-4"
-        type="email"
-        id="form3Example3"
         label="Email address"
+        placeholder="e-mail"
+        name="email"
+        type="email"
+        id="email"
+        value={formData.email}
+        onChange={handleChange}
       />
       <MDBInput
         className="mb-4"
+        name="password"
         type="password"
-        id="form3Example4"
+        id="password"
         label="Password"
+        value={formData.password}
+        onChange={handleChange}
       />
 
       <MDBBtn type="submit" className="mb-4" block>

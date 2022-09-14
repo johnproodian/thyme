@@ -1,13 +1,13 @@
 // import logo from "../../logo.svg";
-import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import SignInPanel from "../../components/signInPanel/signInPanel";
 
 export function LandingPage() {
   return (
-    <MDBContainer fluid className="App Full-Screen bg-light">
-      <MDBRow className="h-25">
-        <MDBCol bottom className="h-50  ">
-          <p>Logo Here</p>
+    <MDBContainer fluid className="App Full-Screen">
+      <MDBRow className="h-25 ">
+        <MDBCol center className="h-50  ">
+          <p className="text-center ">Logo Here</p>
         </MDBCol>
       </MDBRow>
       <MDBRow className="h-50" center>
