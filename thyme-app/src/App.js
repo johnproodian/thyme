@@ -13,6 +13,7 @@ import {
   TrackingPage,
   ProductPage,
   APIPage,
+  StoreSearchPage,
 } from "./pages";
 
 const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
@@ -34,6 +35,7 @@ function App() {
           <Route path="/login" element={<LogInPage />} />
           <Route path="/tracking" element={<TrackingPage />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/store" element={<StoreSearchPage />} />
           <Route path="/api" element={<APIPage />} />
         </Routes>
       </BrowserRouter>
