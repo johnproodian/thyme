@@ -33,4 +33,9 @@ def get_data(items, store_location, limit):
 
 get_data(list_of_item_types, '03400738', "10")
 
+import apiTools
 
+# Check if token in valid and if not refresh token
+# Create a loop that runs once a day over multiple items
+# Might need t change pullitem to accept a token
+# Run pullItem
