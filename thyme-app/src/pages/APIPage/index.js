@@ -2,19 +2,24 @@
 
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import API from "../../utils/API";
+import { GET_USERS, ADD_USER } from "../../utils/API";
+
+console.log(GET_USERS);
 
 const DisplayUsers = (props) => {
-  const { loading, error, data } = useQuery(API.query.GET_USERS);
+  const {loading, error, data } = useQuery(GET_USERS);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error) {
+    console.log(error);
+    return <p>Error :(</p>;
+  }
 
-  return data.users.map(({ _id, username, email, zipCode }) => (
+  return data?.users.map(({ _id, email, storeID }) => (
     <div key={_id}>
-      <h5>{username}</h5>
+      <h5>{_id}</h5>
       <h6>{email}</h6>
-      <h6>{zipCode}</h6>
+      <h6>{storeID}</h6>
       <br />
     </div>
   ));
@@ -23,16 +28,13 @@ const DisplayUsers = (props) => {
 const CreateUser = (props) => {
   // Init State for Form data
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
-    zipCode: "",
+    storeID: "",
     password: "",
   });
 
   // Init Mutate Hook
-  const [addUser, { data, loading, error }] = useMutation(
-    API.mutation.ADD_USER
-  );
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,10 +50,10 @@ const CreateUser = (props) => {
 
     // console.log(formData);
 
-    const { username, email, zipCode, password } = formData;
+    const { email, storeID, password } = formData;
 
     // Add user with form data
-    await addUser({
+    const { data } = await addUser({
       variables: {
         ...formData,
       },
@@ -64,22 +66,13 @@ const CreateUser = (props) => {
     window.location.assign("/api");
   };
 
-  if (loading) return "Submitting...";
+  // if (loading) return "Submitting...";
   if (error) return `Submission error! ${error.message}`;
 
   return (
     <>
       <p style={{ fontSize: "1rem" }}>Add User</p>
       <form onSubmit={handleFormSubmit}>
-        <input
-          placeholder="username"
-          name="username"
-          type="username"
-          id="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <br />
         <input
           placeholder="e-mail"
           name="email"
@@ -90,11 +83,11 @@ const CreateUser = (props) => {
         />
         <br />
         <input
-          placeholder="zipcode"
-          name="zipCode"
-          type="zipCode"
-          id="zipCode"
-          value={formData.zipCode}
+          placeholder="store ID"
+          name="storeID"
+          type="storeID"
+          id="storeID"
+          value={formData.storeID}
           onChange={handleChange}
         />
         <br />

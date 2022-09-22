@@ -2,7 +2,6 @@ const path = require('path');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
-const { User } = require('./models');
 
 // import typeDefs, resolvers
 const { typeDefs, resolvers } = require('./schemas');
@@ -43,9 +42,9 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../thyme-app/build')));
 } 
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../thyme-app/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../thyme-app/build/index.html'));
+// });
 
 db.once('open', () => {
     app.listen(PORT, () => {

@@ -4,7 +4,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import Apollo Client
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 
 // Import Pages
 import {
@@ -16,11 +16,15 @@ import {
   StoreSearchPage,
 } from "./pages";
 
-const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
+const apiEndpoint = `http://localhost:3001/graphql`;
+
+const httpLink = createHttpLink({
+  uri: "/graphql"
+});
 
 // Initialize Client Object
 const client = new ApolloClient({
-  uri: apiEndpoint,
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
