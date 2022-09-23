@@ -16,7 +16,13 @@ import {
   StoreSearchPage,
 } from "./pages";
 
-const apiEndpoint = `http://localhost:3001/graphql`;
+// const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
+
+// // Initialize Client Object
+// const client = new ApolloClient({
+//   uri: apiEndpoint,
+//   cache: new InMemoryCache(),
+// });
 
 const httpLink = createHttpLink({
   uri: "graphql"
