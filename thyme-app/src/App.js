@@ -19,7 +19,7 @@ import {
 const apiEndpoint = `http://localhost:3001/graphql`;
 
 const httpLink = createHttpLink({
-  uri: "/graphql"
+  uri: "graphql"
 });
 
 // Initialize Client Object

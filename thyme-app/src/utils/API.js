@@ -3,15 +3,13 @@ import { gql } from "@apollo/client";
 // const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
 
 export const GET_USERS = gql`
-      query {
-        getUsers {
-          users {
-            _id
-            email
-            storeID
-          }
-        }
-      }
+  query getUsers {
+    users {
+      _id
+      email
+      storeID
+    }
+  }
     `;
 
 export const ADD_USER = gql`
