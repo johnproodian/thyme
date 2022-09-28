@@ -47,12 +47,13 @@ def pushToMongo(myItem):
 
 #TODO: Function works but is refreshing every pull.  Need to adjust to only use token refresh but error 401 happens
 #  Maybe split up the function into smaller ones and intergrat them instead of code replication.
-def pullItem(type, location, limit):
+def pullItem(type, location, limit, token):
     # URL and payload sent to Kroger API for access and items.
+    token = check_token_stale(token)
     url2 = "https://api.kroger.com/v1/products?filter.term=" + type + "&filter.locationId=" + location + "&filter.limit=" + limit
     payload={}
     headers = {
-    'Authorization': 'Bearer ' + get_access_token()}
+    'Authorization': 'Bearer ' + token}
 
     # Delete else statement and assign the token get to a variable that pulls through the function.  Needs to store
     # outside the file so it does not run each time.  
@@ -75,10 +76,26 @@ def pullItem(type, location, limit):
         print('Regular Price: ' + regPrice)
         myItemData = {"date": date, "item": item, "salePrice": salePrice, "regPrice": regPrice}
         pushToMongo(myItemData)
+        return token
 
+def check_token_stale(token):
+    url2 = "https://api.kroger.com/v1/products?filter.term=bread&filter.locationId=03400738&filter.limit=1"
+    payload={}
+    headers = {
+    'Authorization': 'Bearer ' + str(token)}
+    response = requests.request("GET", url2, headers=headers, data=payload)
+
+    print(response.status_code)
+    if response.status_code != 200:
+        json_response = response.json()
+        print("Time to get a new token!")
+        return get_access_token()
+    else:
+        return token
 
 # Test Function call
-# pullItem('candy', '03400738', '1')
+pullItem('water', '03400738', '1', "token")
+# print(check_token_stale("this_is_my_token"))
 
 
 
