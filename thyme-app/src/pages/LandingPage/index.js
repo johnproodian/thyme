@@ -5,6 +5,7 @@ import { SearchBar } from "../../components/SearchBar/SearchBar";
 
 export function LandingPage() {
   return (
+    <>
     <MDBContainer fluid className="App Full-Screen bg-light">
       <MDBRow className="h-25">
         <MDBCol bottom className="h-50  ">
@@ -20,10 +21,10 @@ export function LandingPage() {
         </MDBCol>
       </MDBRow>
       <MDBRow className="h-25" center></MDBRow>   
-        <SearchBar />
+       
     </MDBContainer>
- 
- 
+  <SearchBar />
+ </>
    
   );
 }
