@@ -22,5 +22,8 @@ export function LandingPage() {
         </MDBCol>
       </MDBRow>
     </MDBContainer>
+    <div>
+      <SearchBar />
+    </div>
   );
 }
