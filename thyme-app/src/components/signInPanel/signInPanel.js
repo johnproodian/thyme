@@ -10,6 +10,7 @@ import {
   MDBCheckbox,
   MDBBtn,
   MDBIcon,
+  MDBContainer,
 } from "mdb-react-ui-kit";
 
 // MDB Components for Panel
@@ -42,7 +43,7 @@ const LogInForm = (props) => {
           <MDBCheckbox id="form2Example3" label="Remember me" defaultChecked />
         </MDBCol>
         <MDBCol>
-          <a href="#!">Forgot password?</a>
+          <a href="#!">Forgot Password?</a>
         </MDBCol>
       </MDBRow>
 
@@ -50,7 +51,7 @@ const LogInForm = (props) => {
         Sign in
       </MDBBtn>
 
-      <div className="text-center">
+      <div className="text-center d-none">
         <p>or sign up with:</p>
 
         <MDBBtn block className="mx-1 my-1">
@@ -108,11 +109,11 @@ function SignInPanel(props) {
   };
 
   return (
-    <>
-      <MDBTabs pills justify className="mb-4 w-100">
+    <MDBContainer>
+      <MDBTabs pills justify className="mb-4 mx-auto">
         <MDBTabsItem>
           <MDBTabsLink
-            className="mx-1"
+            className="mx-1 "
             onClick={() => handleTabClick("tab1")}
             active={activeTab === "tab1"}
           >
@@ -121,10 +122,11 @@ function SignInPanel(props) {
         </MDBTabsItem>
         <MDBTabsItem>
           <MDBTabsLink
+            className=""
             onClick={() => handleTabClick("tab2")}
             active={activeTab === "tab2"}
           >
-            Create Account
+            Register
           </MDBTabsLink>
         </MDBTabsItem>
       </MDBTabs>
@@ -137,7 +139,7 @@ function SignInPanel(props) {
           <CreateAccountForm />
         </MDBTabsPane>
       </MDBTabsContent>
-    </>
+    </MDBContainer>
   );
 }
 
