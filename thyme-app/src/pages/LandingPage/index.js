@@ -1,6 +1,6 @@
 import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import SignInPanel from "../../components/signInPanel/signInPanel";
-import { SearchBar } from '../SearchBar/SearchBar';
+import { SearchBar } from "../../components/SearchBar/SearchBar";
 
 export function LandingPage() {
   return (
