@@ -28,6 +28,7 @@
     "bcrypt": "^5.0.1",
     "bulma": "^0.9.4",
     "express": "^4.18.1",
+    "graphql": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.4",
     "react": "^18.2.0"
