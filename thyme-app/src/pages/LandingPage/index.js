@@ -19,10 +19,11 @@ export function LandingPage() {
           </MDBRow>
         </MDBCol>
       </MDBRow>
-      <MDBRow className="h-25" center></MDBRow>
+      <MDBRow className="h-25" center></MDBRow>   
+        <SearchBar />
     </MDBContainer>
-    <div>
-      <SearchBar />
-    </div>
+ 
+ 
+   
   );
 }
