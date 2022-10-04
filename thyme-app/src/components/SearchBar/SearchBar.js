@@ -11,14 +11,14 @@ export function SearchBar () {
           <input className="input" type="text" placeholder="Item" />
         </p>
         <p class="control">
-          <button className="button is-static">Search Item</button>
+          <button className="button is-info">Search Item</button>
         </p>
         <p class="control">
           <input className="input" type="text" placeholder="Zip Code" />
         </p>
 
         <p className="control">
-          <button className="button is-static">Search Zip Code</button>
+          <button className="button is-info">Search Zip Code</button>
         </p>
       </div>
     </>
