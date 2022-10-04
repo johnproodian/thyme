@@ -1,6 +1,7 @@
 // import logo from "../../logo.svg";
 import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
 import SignInPanel from "../../components/signInPanel/signInPanel";
+import { SearchBar } from '../SearchBar/SearchBar';
 
 export function LandingPage() {
   return (
