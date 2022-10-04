@@ -20,5 +20,8 @@ export function LandingPage() {
       </MDBRow>
       <MDBRow className="h-25" center></MDBRow>
     </MDBContainer>
+    <div>
+      <SearchBar />
+    </div>
   );
 }
