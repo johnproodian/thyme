@@ -1,7 +1,12 @@
 {
   "name": "thyme-app",
   "version": "0.1.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
   "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@testing-library/jest-dom": "^5.16.5",
