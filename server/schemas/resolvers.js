@@ -15,6 +15,7 @@ const resolvers = {
     Mutation: {
         addUser: async(parent, args) => {
             const user = await User.create(args);
+            console.log('user: ', user._id);
             const token = signToken(user);
 
             return { token, user };
@@ -35,6 +36,22 @@ const resolvers = {
 
             const token = signToken(user);
             return { token, user };
+        },
+        updateStore: async(parent, args, context) => {
+            console.log('context: ', context);
+            console.log('con.us: ', context.user);
+            console.log('con.id: ', context.user._id);
+            if (context.user) {
+                const user = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { storeID: args.storeID  },
+                    { new: true }
+                )
+
+                console.log('updated user: ', user);
+
+                return user;
+            }
         },
         deleteAll: async() => {
             await User.deleteMany({});
