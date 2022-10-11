@@ -17,10 +17,10 @@ const typeDefs = gql`
         users: [User]
     }
 
-
     type Mutation {
         addUser(email: String!, password: String!, storeID: String): Auth
         login(email: String!, password: String!): Auth
+        updateStore(storeID: String!): User
         deleteAll: [User]
     }
 `;
