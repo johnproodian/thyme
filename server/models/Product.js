@@ -3,14 +3,15 @@ const { Schema, model } = require('mongoose');
 const productSchema = new Schema(
     {
         _id: {
-            type: String
+            type: String,
+            required: true
         },
         name: {
             type: String,
             required: true,
             unique: true,
         },
-        details: {
+        description: {
             type: String,
             required: false
         },

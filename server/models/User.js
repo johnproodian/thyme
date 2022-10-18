@@ -19,7 +19,10 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        storeID: [String],
+        storeID: {
+            type: String,
+            unique: false
+        },
         products: [
             {
                 type: Schema.Types.String,

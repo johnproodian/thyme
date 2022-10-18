@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Product } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -52,6 +52,24 @@ const resolvers = {
 
                 return user;
             }
+        },
+        addProduct: async(parent, {_id, name, description, storeID}, context) => {
+            //need to add context.user conditional
+            const newProduct = await Product.findOneAndUpdate(
+                {_id}, 
+                {
+                    _id,
+                    name,
+                    description,
+                    $push: { storeIDs: storeID }
+                },
+                {
+                    new: true,
+                    upsert: true
+                });
+
+            return newProduct;
+            
         },
         deleteAll: async() => {
             await User.deleteMany({});
