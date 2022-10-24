@@ -35,6 +35,11 @@ const resolvers = {
 
             const token = signToken(user);
             return { token, user };
+        },
+        deleteAll: async() => {
+            await User.deleteMany({});
+
+            return User.find();
         }
 
         // log out

@@ -1,30 +1,30 @@
-// import logo from "../../logo.svg";
-import { MDBCol, MDBContainer, MDBRow } from "mdbreact";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import SignInPanel from "../../components/signInPanel/signInPanel";
 import { SearchBar } from "../../components/SearchBar/SearchBar";
 
 export function LandingPage() {
   return (
     <>
-    <MDBContainer fluid className="App Full-Screen bg-light">
-      <MDBRow className="h-25">
-        <MDBCol bottom className="h-50  ">
-          <p>Logo Here</p>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="h-50" center>
-        <MDBCol size="10" md="6" lg="4" className="">
-          {/* Panel For log in and Create account */}
-          <MDBRow className="w-100">
-            <SignInPanel />
-          </MDBRow>
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className="h-25" center></MDBRow>   
-       
-    </MDBContainer>
-  <SearchBar />
- </>
-   
+      <MDBContainer fluid className="bg-light Full-Screen ">
+        <MDBRow center className="p-4 mt-3 mt-md-5">
+          <MDBCol size={8} className="text-center my-4">
+            <img
+              src={"/images/thyme_logo.png"}
+              className="img-fluid mx-auto"
+              alt="logo"
+            />
+          </MDBCol>
+        </MDBRow>
+        <MDBRow className="mt-3" center>
+          <MDBCol size="12" md="6" lg="4" className="">
+            {/* Panel For log in and Create account */}
+            <MDBRow className="">
+              <SignInPanel />
+            </MDBRow>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      <SearchBar />
+    </>
   );
 }

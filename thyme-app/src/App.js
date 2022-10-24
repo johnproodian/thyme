@@ -4,7 +4,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Import Apollo Client
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
+
+// Import setContext for using middleware with ApolloServer--so we can send tokens as header
+import { setContext } from "@apollo/client/link/context";
 
 // Import Pages
 import {
@@ -16,11 +19,31 @@ import {
   StoreSearchPage,
 } from "./pages";
 
-const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
+// const apiEndpoint = `https://thyme-grocery.herokuapp.com/graphql`;
+
+// // Initialize Client Object
+// const client = new ApolloClient({
+//   uri: apiEndpoint,
+//   cache: new InMemoryCache(),
+// });
+
+const httpLink = createHttpLink({
+  uri: "graphql"
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers, 
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
 
 // Initialize Client Object
 const client = new ApolloClient({
-  uri: apiEndpoint,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

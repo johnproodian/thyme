@@ -1,5 +1,5 @@
 p {
-    margin: 0;
+  margin: 0;
 }
 
 .App {
@@ -50,7 +50,15 @@ p {
   }
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button { 
-	-webkit-appearance: none;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.nav-link.active {
+  background-color: #7cb342 !important;
+}
+
+.btn {
+  background-color: #558b2f !important;
 }
