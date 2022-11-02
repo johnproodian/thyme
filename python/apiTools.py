@@ -4,6 +4,7 @@ import requests             # Handles requests from api
 import datetime             # Get the current date that data was pulled
 import tokenconfig          # config file for token pulls
 import pymongo              # Configuration
+import json
 
 # Sample API call used to test connection and results
 # https://api.kroger.com/v1/connect/oauth2/authorize?scope={{SCOPES}}&response_type=code&client_id={{CLIENT_ID}}&redirect_uri={{REDIRECT_URI}}
@@ -58,35 +59,38 @@ def pullItem(type, location, limit, token):
     # Delete else statement and assign the token get to a variable that pulls through the function.  Needs to store
     # outside the file so it does not run each time.  
     response = requests.request("GET", url2, headers=headers, data=payload)
-    print(response.status_code)
+    json_response = response.json()
+    dicts = json_response['data']
     if response.status_code != 200:
         json_response = response.json()
-        print("Time to get a new token!")
+
 
     else:
-        json_response = response.json()
-        date = datetime.datetime.now().strftime("%m/%d/%Y")
-        item = str(json_response['data'][0]['description'])
-        salePrice = str(json_response['data'][0]['items'][0]['price']['promo'])
-        regPrice = str(json_response['data'][0]['items'][0]['price']['regular'])
-        #  Prints out return to console to check to see if it is pulling correctly
-        print('Date: ' + date)
-        print('Item: ' + item)
-        print('Promo price: ' + salePrice)
-        print('Regular Price: ' + regPrice)
-        myItemData = {"date": date, "item": item, "salePrice": salePrice, "regPrice": regPrice}
-        pushToMongo(myItemData)
+        for dict in dicts:
+            try:
+                item_data = {"date": datetime.datetime.now().strftime("%m/%d/%Y"),
+                            "product_id": dict['productId'],
+                            "store_id": location,
+                            "item_name": dict['description'],
+                            "size": dict['items'][0]['size'],
+                            "regular_price": dict['items'][0]['price']['regular'],
+                            "promo_price": dict['items'][0]['price']['promo']
+                }
+                pushToMongo(item_data)
+                print(item_data)
+            except KeyError:
+                print("Broken or missing data points")
         return token
 
 def check_token_stale(token):
-    url2 = "https://api.kroger.com/v1/products?filter.term=bread&filter.locationId=03400738&filter.limit=1"
+    url2 = "https://api.kroger.com/v1/products"
     payload={}
     headers = {
     'Authorization': 'Bearer ' + str(token)}
     response = requests.request("GET", url2, headers=headers, data=payload)
 
     print(response.status_code)
-    if response.status_code != 200:
+    if response.status_code != 400:
         json_response = response.json()
         print("Time to get a new token!")
         return get_access_token()
@@ -94,7 +98,7 @@ def check_token_stale(token):
         return token
 
 # Test Function call
-pullItem('water', '03400738', '1', "token")
+# pullItem('bakeware', '03400738', '10', "token")
 # print(check_token_stale("this_is_my_token"))
 
 
