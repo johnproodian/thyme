@@ -4,6 +4,8 @@
 import apiTools as api
 import subprocess
 
+import subprocess
+
 # Check if token in valid and if not refresh token
 # Create a loop that runs once a day over multiple items
 # Might need to change pullitem to accept a token
@@ -45,6 +47,7 @@ test_items =['bread', 'water', 'milk']
 list_of_item_types =['beef', 'chicken','bread','fish','candy', 'milk',
                     'juice', 'water', 'fruit', 'vegetable', 'soup', 'bakeware',
                      'chips', 'soda', 'pork', 'crackers', 'diapers', 'cake']
+
 
 # Run a large batch of preslected items.  Also check to make sure that it is not grabbing a new token
 # unless a new token is needed.
