@@ -5,6 +5,7 @@
 * Just the client: run ```npm start``` in the thyme-app/ directory.
 * Just the server: run ```npm run watch``` in the server/ directory. To start it without nodemon, run ```npm start```.
 
+
 ### Authentication (in addition to other authentication notes from earlier commit)
 
 On the front end, whenever authentication is needed--to conditionally render a page only for logged in users, or literally to log a user in or out--do the following:
@@ -42,6 +43,8 @@ return (
     </main>
 )
 ```
+    
+
 
 ## Overview of Authentication with JWTs
 Iyan and I (John) have been talking about using JSON web tokens for authentication. 
@@ -54,4 +57,3 @@ The idea is:
 
 I want to create and export a file of code that makes all of this a little easier. That's something for me to do soon if Iyan doesn't beat me to it. 
 - John
-
