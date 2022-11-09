@@ -5,6 +5,7 @@
 * Just the client: run ```npm start``` in the thyme-app/ directory.
 * Just the server: run ```npm run watch``` in the server/ directory. To start it without nodemon, run ```npm start```.
 
+
 ### Authentication (in addition to other authentication notes from earlier commit)
 
 On the front end, whenever authentication is needed--to conditionally render a page only for logged in users, or literally to log a user in or out--do the following:
