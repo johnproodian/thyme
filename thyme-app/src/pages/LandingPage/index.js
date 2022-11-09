@@ -22,9 +22,14 @@ export function LandingPage() {
           </MDBRow>
         </MDBCol>
       </MDBRow>
+<<<<<<< HEAD
+=======
+      <MDBRow className="h-25" center></MDBRow>   
+        <SearchBar />
+>>>>>>> e39e843 (moved div tags around search bar componeneet and moved it inside the mdbdcontainer in the index.js file in the Landingpage folder)
     </MDBContainer>
-    <div>
-      <SearchBar />
-    </div>
+ 
+ 
+   
   );
 }
