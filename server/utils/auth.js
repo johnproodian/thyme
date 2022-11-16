@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+// This needs to be updated for production environment!
 const secret = process.env.SECRET;
 const expiration = '2h';
 
