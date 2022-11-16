@@ -57,8 +57,10 @@ const resolvers = {
             }
         },
         addProduct: async(parent, {_id, name, description, storeID}, context) => {
-            //need to add context.user conditional
-            // try {
+            // need to add context.user conditional
+            // need to connect product to user
+            // need to add functionality where if product exists, storeID should be added to its stores, and if that is already there, nothing happens...
+  
                 const newProduct = await Product.create(
                     {
                         productID: _id,
@@ -72,25 +74,7 @@ const resolvers = {
                     });
 
                     return newProduct;
-            // } catch {
-                // try {
-                //     const updatedProduct = await Product.findOneAndUpdate(
-                //         {_id}, 
-                //         {
-                //             name,
-                //             description,
-                //             $push: { storeIDs: storeID }
-                //         },
-                //         {
-                //             new: true
-                //         }
-                //     )
-
-                //     return updatedProduct;
-                // } catch {
-                //     throw new Error("Something went wrong...")
-                // }
-            // }            
+          
         },
         deleteAll: async() => {
             await User.deleteMany({});
