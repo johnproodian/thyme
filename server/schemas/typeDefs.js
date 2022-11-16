@@ -22,15 +22,22 @@ const typeDefs = gql`
 
     type Query {
         users: [User]
+        products: [Product]
     }
 
     type Mutation {
-        addUser(email: String!, password: String!, storeID: String): Auth
+        addUser(email: String!, password: String!, storeID: String): Auth 
         login(email: String!, password: String!): Auth
         updateStore(storeID: String!): User
         addProduct(_id: ID!, name: String!, description: String, storeID: String): Product
         deleteAll: [User]
     }
 `;
+
+// users
+// addUser
+// login
+// updateStore
+// 
 
 module.exports = typeDefs;
