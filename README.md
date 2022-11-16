@@ -53,3 +53,6 @@ The idea is:
 * Whenever the user wants to do anything on the back end that requires being logged in, we will get the token from localStorage and send it as part of a header along with whatever query or mutation and http body we send (I have set up the App.js file to get the token and send it automatically if it exists), and the api will decode the token and see if the credentials are valid and not expired before it completes the rest of the request (updating user info, pulling their product info, etc). 
 * Also, for pages/compoments that require being logged in to view, we will conditionally render those pages/components by getting the token from localStorage, using [jwt-decode](https://www.npmjs.com/package/jwt-decode) to decode it, and conditionally render the page/component if the decoded expiration time is before the current time.
 * When the user logs out, we do this by removing the token from localStorage.
+
+
+NOTE: I think there is a safer way of storing JWTs locally than localStorage--I will look into that! -John
