@@ -1,14 +1,17 @@
-const { User, Product } = require('../server/models');
+const { User, Product } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../server/utils/auth');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        // 
         // get all users
         users: async() => {
             return User.find()
                 .select('-__v -password');
+        },
+        products: async() => {
+            return Product.find()
+                .select('-__v');
         }
     },
 
@@ -54,22 +57,24 @@ const resolvers = {
             }
         },
         addProduct: async(parent, {_id, name, description, storeID}, context) => {
-            //need to add context.user conditional
-            const newProduct = await Product.findOneAndUpdate(
-                {_id}, 
-                {
-                    _id,
-                    name,
-                    description,
-                    $push: { storeIDs: storeID }
-                },
-                {
-                    new: true,
-                    upsert: true
-                });
+            // need to add context.user conditional
+            // need to connect product to user
+            // need to add functionality where if product exists, storeID should be added to its stores, and if that is already there, nothing happens...
+  
+                const newProduct = await Product.create(
+                    {
+                        productID: _id,
+                        name,
+                        description,
+                        $push: { storeIDs: storeID }
+                    },
+                    {
+                        new: true,
+                        // upsert: true
+                    });
 
-            return newProduct;
-            
+                    return newProduct;
+          
         },
         deleteAll: async() => {
             await User.deleteMany({});
