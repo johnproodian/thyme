@@ -6,7 +6,7 @@ const typeDefs = gql`
         _id: ID
         email: String
         storeID: String
-        productIDs: [String]
+        products: [String]
     }
 
     type Product {
@@ -14,6 +14,7 @@ const typeDefs = gql`
         name: String
         description: String
         storeIDs: [String]
+        userIDs: [ID]
     }
 
     type Auth {

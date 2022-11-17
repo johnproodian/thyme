@@ -19,7 +19,7 @@ const productSchema = new Schema(
         storeIDs: [String],
         userIDs: [
             {
-                type: Schema.Types.String,
+                type: Schema.Types.ObjectId,
                 ref: 'User'
             }
         ]

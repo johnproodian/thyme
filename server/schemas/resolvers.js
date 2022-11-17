@@ -55,8 +55,33 @@ const resolvers = {
 
                 return user;
             }
+
+            throw new AuthenticationError('Not logged in!');
         },
         addProduct: async(parent, {productID, name, description, storeID}, {user}) => {
+            if (user) {
+                const productToUpdate = await Product.findOne({ productID });(productID);
+                console.log(productToUpdate);
+                if (!productToUpdate) {
+                    console.log('no productToUPdate!!!')
+                    const newProduct = await Product.create({ productID, name, description, storeID: [storeID], userIDs: [user._id]});
+                    console.log('new one!: ', newProduct)
+                    
+                    console.log(newProduct.productID)
+                    const userToUpdate = await User.findByIdAndUpdate(
+                        user._id,
+                        {products: [newProduct.productID] },
+                        { new: true }
+                    )
+                    console.log('user to update: ', userToUpdate);
+                    
+                    return newProduct;
+                }
+                console.log('productToUpdate: ', productToUpdate)
+
+            }
+
+            throw new AuthenticationError('Not logged in!');
             // const { _id } = user;
             // console.log(_id)
             // console.log('con.user: ', context.user);
@@ -65,15 +90,7 @@ const resolvers = {
             // need to add functionality where if product exists, storeID should be added to its stores, and if that is already there, nothing happens...
             // console.log(productID, name)
             // return await Product.create({productID, name})
-            const productToUpdate = await Product.findOne({ productID });(productID);
-            console.log(productToUpdate);
-            if (!productToUpdate) {
-                console.log('no productToUPdate!!!')
-                const newProduct = await Product.create({ productID, name, description, storeID: [storeID], userIDs: [user._id]});
-                console.log('new one!: ', newProduct)
-
-            }
-            console.log('productToUpdate: ', productToUpdate)
+            
   
                 // const newProduct = await Product.create(
                 //     {
