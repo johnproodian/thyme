@@ -56,24 +56,38 @@ const resolvers = {
                 return user;
             }
         },
-        addProduct: async(parent, {_id, name, description, storeID}, context) => {
+        addProduct: async(parent, {productID, name, description, storeID}, {user}) => {
+            // const { _id } = user;
+            // console.log(_id)
+            // console.log('con.user: ', context.user);
             // need to add context.user conditional
             // need to connect product to user
             // need to add functionality where if product exists, storeID should be added to its stores, and if that is already there, nothing happens...
-  
-                const newProduct = await Product.create(
-                    {
-                        productID: _id,
-                        name,
-                        description,
-                        $push: { storeIDs: storeID }
-                    },
-                    {
-                        new: true,
-                        // upsert: true
-                    });
+            // console.log(productID, name)
+            // return await Product.create({productID, name})
+            const productToUpdate = await Product.findOne({ productID });(productID);
+            console.log(productToUpdate);
+            if (!productToUpdate) {
+                console.log('no productToUPdate!!!')
+                const newProduct = await Product.create({ productID, name, description, storeID: [storeID], userIDs: [user._id]});
+                console.log('new one!: ', newProduct)
 
-                    return newProduct;
+            }
+            console.log('productToUpdate: ', productToUpdate)
+  
+                // const newProduct = await Product.create(
+                //     {
+                //         productID: _id,
+                //         name,
+                //         description,
+                //         $push: { storeIDs: storeID }
+                //     },
+                //     {
+                //         new: true,
+                //         // upsert: true
+                //     });
+
+                //     return newProduct;
           
         },
         deleteAll: async() => {

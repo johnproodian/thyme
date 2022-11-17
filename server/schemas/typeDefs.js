@@ -10,7 +10,7 @@ const typeDefs = gql`
     }
 
     type Product {
-        _id: ID
+        productID: ID
         name: String
         description: String
         storeIDs: [String]
@@ -30,7 +30,7 @@ const typeDefs = gql`
         addUser(email: String!, password: String!, storeID: String): Auth 
         login(email: String!, password: String!): Auth
         updateStore(storeID: String!): User
-        addProduct(_id: ID!, name: String!, description: String, storeID: String): Product
+        addProduct(productID: ID!, name: String!, description: String, storeID: String): Product
         deleteAll: [User]
     }
 `;

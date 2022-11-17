@@ -20,7 +20,7 @@ const userSchema = new Schema(
         },
         products: [
             {
-                type: Schema.Types.String,
+                type: Schema.Types.ObjectId,
                 ref: 'Product'
             }
         ]
