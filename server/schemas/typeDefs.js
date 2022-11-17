@@ -6,6 +6,7 @@ const typeDefs = gql`
         _id: ID
         email: String
         storeID: String
+        productIDs: [String]
     }
 
     type Product {
