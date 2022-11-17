@@ -18,7 +18,7 @@ const userSchema = new Schema(
             type: String,
             unique: false
         },
-        products: [
+        productIDs: [
             {
                 type: Schema.Types.String,
                 ref: 'Product'
