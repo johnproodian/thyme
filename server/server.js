@@ -9,7 +9,7 @@ const { typeDefs, resolvers } = require('./schemas');
 // db connection
 const db = require('./config/connection');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 443 || 3001;
 const app = express();
 
 const startServer = async() => {
