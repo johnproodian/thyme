@@ -4,7 +4,8 @@ const productSchema = new Schema(
     {
         productID: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         name: {
             type: String,
@@ -15,7 +16,13 @@ const productSchema = new Schema(
             type: String,
             required: false
         },
-        storeIDs: [String]
+        storeIDs: [String],
+        userIDs: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ]
     }
 )
 
