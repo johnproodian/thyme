@@ -14,6 +14,15 @@ const resolvers = {
         products: async() => {
             return Product.find()
                 .select('-__v');
+        },
+
+        storeIDs: async() => {
+            // get api auth set up
+            // start searching by zip
+            // get the zipcode from front end and 
+            const apiUrl = 'https://api.kroger.com/v1/locations?filter.zipCode.near=78728';
+            const locationArr = ['12345', '54321'];
+            return locationArr;
         }
     },
 

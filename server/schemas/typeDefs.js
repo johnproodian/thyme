@@ -25,6 +25,7 @@ const typeDefs = gql`
     type Query {
         users: [User]
         products: [Product]
+        storeIDs: [String]
     }
 
     type Mutation {
