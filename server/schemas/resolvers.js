@@ -72,6 +72,7 @@ const resolvers = {
             //TO-DO: 
                 // Set up sessions to store token so that it doesn't need to be requested every time
                 // Set up conditional to refresh or get new token if the stored on has expired
+                // Send back more data than just storeIDs
 
         }
     },

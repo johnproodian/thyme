@@ -8,41 +8,41 @@ const clientId = process.env.KROGER_CLIENT_ID;
 const clientSecret = process.env.KROGER_CLIENT_SECRET;
 console.log('cli i: ', clientId);
 console.log(clientSecret);
-let krogerToken = "";
+// let krogerToken = "";
 
-const getKrogerToken = () => {
+// const getKrogerToken = () => {
 
-    axios.post("https://api.kroger.com/v1/connect/oauth2/token", 
-        {
-            "grant_type": "client_credentials",
-            "scope": "product.compact"
-        }, 
-        {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+//     axios.post("https://api.kroger.com/v1/connect/oauth2/token", 
+//         {
+//             "grant_type": "client_credentials",
+//             "scope": "product.compact"
+//         }, 
+//         {
+//             headers: {
+//                 "Content-Type": "application/x-www-form-urlencoded",
 
-                // TO-DO: use Buffer or something else to base64 encode credentials, rather than hard-coding
-                "Authorization": "Basic dGh5bWUtYXBwLTMwNzA2ODIwMzE0ZjQxNmI1MWRkMTljZjk3ZWNkNDNmNjIwNDMzNzAxNDA4MDUyMDgxMzpiNXJEQ3A4TzJxbXl6MzJjeFpxTVdQOFF5a3BnYnhQZXhYbHY4OGNL"
-            }
-        }
-    )
-    .then( response => {
-        // console.log(response);
-        krogerToken = response.data.access_token;
-        // console.log(krogerToken);
-        // return krogerToken
-        console.log(response);
+//                 // TO-DO: use Buffer or something else to base64 encode credentials, rather than hard-coding
+//                 "Authorization": "Basic dGh5bWUtYXBwLTMwNzA2ODIwMzE0ZjQxNmI1MWRkMTljZjk3ZWNkNDNmNjIwNDMzNzAxNDA4MDUyMDgxMzpiNXJEQ3A4TzJxbXl6MzJjeFpxTVdQOFF5a3BnYnhQZXhYbHY4OGNL"
+//             }
+//         }
+//     )
+//     .then( response => {
+//         // console.log(response);
+//         krogerToken = response.data.access_token;
+//         // console.log(krogerToken);
+//         // return krogerToken
+//         console.log(response);
 
-    })
+//     })
 
     
 
-    // const encodedCredentials = (Buffer.from(`${clientId}:${clientSecret}`, `ascii`));
-    // console.log('encodedCredentials: ', encodedCredentials)
-}
+//     // const encodedCredentials = (Buffer.from(`${clientId}:${clientSecret}`, `ascii`));
+//     // console.log('encodedCredentials: ', encodedCredentials)
+// }
 
 // getKrogerToken();
 
 
 
-module.exports = { getKrogerToken, apiBaseUrl, oauth2BaseUrl, clientId, clientSecret };
+module.exports = { apiBaseUrl, oauth2BaseUrl, clientId, clientSecret };
