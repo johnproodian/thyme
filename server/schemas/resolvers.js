@@ -1,3 +1,8 @@
+const apiBaseUrl = process.env.API_BASE_URL;
+const oauth2BaseUrl = process.env.OAUTH2_BASE_URL;
+const clientId = process.env.KROGER_CLIENT_ID;
+const clientSecret = process.env.KROGER_CLIENT_SECRET;
+
 const { User, Product } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
@@ -16,10 +21,21 @@ const resolvers = {
                 .select('-__v');
         },
 
-        storeIDs: async() => {
+        storeIDs: async(parent, args, context) => {
             // get api auth set up
-            // start searching by zip
-            // get the zipcode from front end and 
+            // const scope = "product.compact cart.basic:write profile.compact"
+            // const url = "${oauth2BaseUrl}/authorize?scope=${scope}&client_id=${clientId}&response_type=code&redirect_uri=http://localhost:3000/callback";
+
+            // const response = await fetch(url, {
+            //     method: 'GET',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //         'Authorization': `Basic {{base64(${clientId}:${clientSecret})}}`
+            //     }
+            // })
+            // console.log(url);
+            // // start searching by zip
+            // // get the zipcode from front end and 
             const apiUrl = 'https://api.kroger.com/v1/locations?filter.zipCode.near=78728';
             const locationArr = ['12345', '54321'];
             return locationArr;
