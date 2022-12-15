@@ -22,6 +22,7 @@ def get_access_token():
     url = 'https://api.kroger.com/v1/connect/oauth2/token'
     client_id = tokenconfig.client_id
     client_secret = tokenconfig.client_secret
+    print(client_id, client_secret)
 
     response = requests.post(
         url,
