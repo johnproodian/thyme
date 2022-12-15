@@ -1,11 +1,15 @@
-const apiBaseUrl = process.env.API_BASE_URL;
-const oauth2BaseUrl = process.env.OAUTH2_BASE_URL;
-const clientId = process.env.KROGER_CLIENT_ID;
-const clientSecret = process.env.KROGER_CLIENT_SECRET;
+// const apiBaseUrl = process.env.API_BASE_URL;
+// const oauth2BaseUrl = process.env.OAUTH2_BASE_URL;
+// const clientId = process.env.KROGER_CLIENT_ID;
+// const clientSecret = process.env.KROGER_CLIENT_SECRET;
+const { Buffer } = require('node:buffer');
+const { apiBaseUrl, oauth2BaseUrl, clientId, clientSecret } = require('../config/krogerConfig');
+const fs = require('fs');
 
 const { User, Product } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const axios = require('axios');
 
 const resolvers = {
     Query: {
@@ -21,24 +25,54 @@ const resolvers = {
                 .select('-__v');
         },
 
-        storeIDs: async(parent, args, context) => {
-            // get api auth set up
-            // const scope = "product.compact cart.basic:write profile.compact"
-            // const url = "${oauth2BaseUrl}/authorize?scope=${scope}&client_id=${clientId}&response_type=code&redirect_uri=http://localhost:3000/callback";
+        // Get 10 closest store ids based on zip code
+        storeIDs: async(parent, { zipCode }, context) => {
+            // Array of storeIDs that will be filled and returned to the client
+            let locationIDs = [];
 
-            // const response = await fetch(url, {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //         'Authorization': `Basic {{base64(${clientId}:${clientSecret})}}`
-            //     }
-            // })
-            // console.log(url);
-            // // start searching by zip
-            // // get the zipcode from front end and 
-            const apiUrl = 'https://api.kroger.com/v1/locations?filter.zipCode.near=78728';
-            const locationArr = ['12345', '54321'];
-            return locationArr;
+            // base64-encoded client id and secret to be used to get access token from Kroger API
+            const encoded = Buffer.from(`${clientId}:${clientSecret}`, 'ascii').toString('base64');
+
+            // first request--POST to get authorization token for our application
+            let response = await axios.post("https://api.kroger.com/v1/connect/oauth2/token", 
+                {
+                    "grant_type": "client_credentials",
+                    "scope": "product.compact"
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+
+                        "Authorization": `Basic ${encoded}`
+                    }
+                }
+            )
+
+            // store access token here to make second request below
+            let krogerToken = response.data.access_token;
+            let locationUrl = `${apiBaseUrl}/v1/locations?filter.zipCode.near=${zipCode}`;
+
+            // second request--GET to get storeIDs (current settings will return 10 store IDs)
+            let locationData = await axios.get(locationUrl, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `bearer ${krogerToken}`
+                    }
+                })
+
+            // loop through the store objects to get the storeIDs and add them to array to send back to client
+            locationData.data.data.map( location => {
+                locationIDs.push(location.locationId);
+            })
+
+            console.log(locationIDs);
+                    
+            return locationIDs;
+
+            //TO-DO: 
+                // Set up sessions to store token so that it doesn't need to be requested every time
+                // Set up conditional to refresh or get new token if the stored on has expired
+
         }
     },
 

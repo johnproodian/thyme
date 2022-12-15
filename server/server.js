@@ -4,6 +4,9 @@ const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
 const { clientId, apiBaseUrl } = require('./config/krogerConfig');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const { getKrogerToken } = require('./config/krogerConfig');
 
 // import typeDefs, resolvers
 const { typeDefs, resolvers } = require('./schemas');
@@ -38,6 +41,13 @@ startServer();
 
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
+app.use(session({
+    secret: 'super secret session secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {},
+    // use MongoStore later--default store leaks memory!
+}))
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {

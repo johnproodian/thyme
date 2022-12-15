@@ -8,8 +8,9 @@ const clientId = process.env.KROGER_CLIENT_ID;
 const clientSecret = process.env.KROGER_CLIENT_SECRET;
 console.log('cli i: ', clientId);
 console.log(clientSecret);
+let krogerToken = "";
 
-const getKrogerToken = async () => {
+const getKrogerToken = () => {
 
     axios.post("https://api.kroger.com/v1/connect/oauth2/token", 
         {
@@ -25,14 +26,23 @@ const getKrogerToken = async () => {
             }
         }
     )
-        .then( response => {
-            console.log(response);
-        })
+    .then( response => {
+        // console.log(response);
+        krogerToken = response.data.access_token;
+        // console.log(krogerToken);
+        // return krogerToken
+        console.log(response);
+
+    })
+
+    
 
     // const encodedCredentials = (Buffer.from(`${clientId}:${clientSecret}`, `ascii`));
     // console.log('encodedCredentials: ', encodedCredentials)
 }
 
-getKrogerToken();
+// getKrogerToken();
 
-module.exports = { apiBaseUrl, oauth2BaseUrl, clientId, clientSecret };
+
+
+module.exports = { getKrogerToken, apiBaseUrl, oauth2BaseUrl, clientId, clientSecret };
